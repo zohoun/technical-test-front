@@ -20,7 +20,7 @@
               <div class="sm:col-span-2" style="cursor: auto;">
                 <div class="flex items-center space-x-3" style="cursor: auto;">
                   <div class="flex items-center space-x-2" style="cursor: auto;">
-                    <span class="bg-sky-400 inline-flex items-center leading-none px-2.5 py-1.5 text-sm font-medium text-skin-inverted rounded-full border border-skin-input" style="cursor: auto;">
+                    <span :class="[{ 'bg-green-400': task.status.label==='Done', 'bg-red-400': task.status.label != 'Done' },'bg-sky-400', 'inline-flex', 'items-center', 'leading-none', 'px-2.5', 'py-1.5', 'text-sm', 'font-medium', 'text-skin-inverted', 'rounded-full', 'border', 'border-skin-input']" style="cursor: auto;">
                       {{ task.status.label }}
                     </span>
                     <h4 class="text-indigo-600 text-lg leading-6 font-semibold font-sans text-skin-inverted group-hover:text-skin-primary" style="cursor: auto;">
