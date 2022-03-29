@@ -47,6 +47,10 @@ export class AppService {
 
     // The tasks must be listed by ascending deadline `date`, then by order of creation `createdAt` if no deadline `date`.
     // You can use external libraries to perform this.
+
+    _tasks.sort((a: Task, b: Task) => {
+      return +new Date(a.date != null ? a.date : a.createdAt) - +new Date(b.date != null ? b.date : b.createdAt);
+    });
     return _tasks;
   }
 
