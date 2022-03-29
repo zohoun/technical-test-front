@@ -1,23 +1,81 @@
 <template>
   <div class="m-10">
-    <ul class="list-disc">
-      <li>
-        <div class="inline-flex gap-x-2">
-          <a href="https://github.com/nuxt-community/svg-sprite-module" target="_blank">Use @nuxtjs/svg-sprite for icons</a>
-          <!-- You should use SvgIcon to use the icons -->
-          <SvgIcon name="icons/pencil" class="p-1 w-5 h-5 bg-indigo-600 text-white rounded" />
+    <div class="container">
+      <div class="container mx-auto h-20 flex justify-between items-center">
+        <h2>My tasks</h2>
+        <select id="" v-model="optionSelectionee" name="" class="text-right" @change="selectChange">
+          <option v-for="option in optionsOfFiltering" :key="option.value" class="text-left" :value="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+      <hr>
+    </div>
+
+    <div class="container mx-auto px-20">
+      <div style="background-color:rgb(255, 255, 255)">
+        <div v-for="task in tasks" :key="task.id" class="bg-white rounded p-4 shadow md:flex justify-between" data-v-648b5d7b="" style="cursor: auto;">
+          <div data-v-648b5d7b="">
+            <div class="space-y-4 lg:grid lg:grid-cols-3 lg:items-start lg:gap-6 lg:space-y-0" style="cursor: auto;">
+              <div class="sm:col-span-2" style="cursor: auto;">
+                <div class="flex items-center space-x-3" style="cursor: auto;">
+                  <div class="flex items-center space-x-2" style="cursor: auto;">
+                    <span class="bg-sky-400 inline-flex items-center leading-none px-2.5 py-1.5 text-sm font-medium text-skin-inverted rounded-full border border-skin-input" style="cursor: auto;">
+                      {{ task.status.label }}
+                    </span>
+                    <h4 class="text-indigo-600 text-lg leading-6 font-semibold font-sans text-skin-inverted group-hover:text-skin-primary" style="cursor: auto;">
+                      {{ task.title }}
+                    </h4>
+                  </div>
+                </div>
+
+                <div class="mt-2" style="cursor: auto;">
+                  <p class="mt-1 text-sm font-normal text-skin-base leading-5" style="cursor: auto;">
+                    {{ task.description }}
+                  </p>
+
+                  <div class="mt-3 flex items-center font-sans" style="cursor: auto;">
+                    <div class="ml-3">
+                      <div class="flex space-x-1 text-sm text-skin-muted" style="cursor: auto;">
+                        <time datetime="2022-02-01" style="cursor: auto;">Create at {{ convertToLongDateFormat(task.createdAt) }}</time>
+
+                        <span style="cursor: auto;" class="text-sm font-medium text-skin-inverted"> Update at{{ convertToLongDateFormat(task.updatedAt) }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-right md:ml-8 flex items-center" data-v-648b5d7b="">
+            <div class="flex md:block -mx-2 md:mx-0 mt-3 md:mt-0" data-v-648b5d7b="">
+              <div class="flex justify-end items-bottom mb-1 px-2 md:px-0" data-v-648b5d7b="">
+                <button class="btn btn-sm purple-bg">
+                  <i class="fas fa-edit" />
+                  <nuxt-link :to="{path :'form',query:{id:task.id,title:task.title,description:task.description, status:task.status.value,date:task.date}}">
+                    <SvgIcon name="icons/pencil" class="p-1 w-5 h-5 bg-indigo-600 text-white rounded" />
+                  </nuxt-link>
+                </button>
+                <button class="btn btn-sm bg-danger" @click="deleteTask(task.id)">
+                  <SvgIcon name="icons" class="p-1 w-5 h-5 bg-red-600 text-white rounded" />
+                </button>
+              </div>
+              <div class="flex justify-end px-2 md:px-0" data-v-648b5d7b="">
+                <p class="text-secondary">
+                  <i class="fas fa-calendar" /> {{ task.date? convertToshortDateFormat(task.date) : "" }}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-      </li>
-      <li><b>TASK_STATUS</b> could be helpful. <b>~/dewib/api/tasks/index.js</b></li>
-      <li>All requests to the API will be located in the <b>`~/dewib/api/tasks/index`</b> file</li>
-      <li>Check <b>TASKS_FIELDS</b> for the mapping to be used from your page <b>~/dewib/api/tasks/index.js</b></li>
-      <li>Form components could be helpful <b>~/components/form</b></li>
-    </ul>
-    <pre>{{ tasks }}</pre>
+      </div>
+    </div>
+    <!-- <pre>{{ tasks }}</pre> -->
   </div>
 </template>
 
 <script>
+import { TASK_STATUS } from '~/dewib/api/tasks/index.js'
 export default {
   async asyncData ({ $api, error }) {
     const [err, tasks] = await $api.tasks.findAll()
@@ -31,6 +89,38 @@ export default {
 
     return {
       tasks
+    }
+  },
+  data () {
+    return {
+      monthNames: ['January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+      ],
+      optionsOfFiltering: TASK_STATUS,
+      optionSelectionee: {},
+      allTask: []
+    }
+  },
+  methods: {
+    convertToLongDateFormat (date) {
+      return this.convertToshortDateFormat(date) + ' - ' + new Date(date).toLocaleTimeString()
+    },
+    convertToshortDateFormat (date) {
+      return this.monthNames[(new Date(date)).getMonth()] + ' ' + new Date(date).getDate() + ', ' + new Date(date).getFullYear()
+    },
+    deleteTask (id) {
+      this.$api.tasks.deleteTask(id)
+    },
+    selectChange () {
+      if (this.allTask.length === 0) {
+        this.allTask = this.tasks
+      }
+      if (this.optionSelectionee === 'ALL') {
+        console.log(this.optionSelectionee)
+        this.tasks = this.allTask
+      } else if (this.optionSelectionee) {
+        this.tasks = this.allTask.filter(word => word.status.value === this.optionSelectionee)
+      }
     }
   }
 }

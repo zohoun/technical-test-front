@@ -53,7 +53,7 @@ export default {
 
   proxy: {
     '/api': {
-      target: process.env.API_BASE_URL,
+      target: 'http://localhost:3005',
       pathRewrite: { '^/api/': '' }
     }
   },

@@ -59,6 +59,7 @@ export default class TasksService extends ApiModel {
    * @returns Task[]
    */
   findAll ({ status } = {}) {
+    console.log('test')
     return this.get('', {
       fields: TASKS_FIELDS,
       queryParams: {
@@ -86,6 +87,9 @@ export default class TasksService extends ApiModel {
    * @param {*} form
    * @returns Task
    */
+  createTask (data) {
+    return this.post('', data, { fields: TASK_FIELDS })
+  }
   // this.post(url, body, { fields: TASK_FIELDS })
 
   /**
@@ -95,7 +99,9 @@ export default class TasksService extends ApiModel {
    * @param {*} form
    * @returns
    */
-  // this.patch(url, body, { fields: TASK_FIELDS })
+  updateTask (id, data) {
+    return this.patch(`${id}`, data, { fields: TASK_FIELDS })
+  }
 
   /**
    * Remove a task ?
@@ -103,5 +109,9 @@ export default class TasksService extends ApiModel {
    * @param {*} id
    * @returns
    */
+
+  deleteTask (id) {
+    return this.delete(`${id}`)
+  }
   // this.delete(url)
 }
