@@ -39,7 +39,7 @@
                       <div class="flex space-x-1 text-sm text-skin-muted" style="cursor: auto;">
                         <time datetime="2022-02-01" style="cursor: auto;">Create at {{ convertToLongDateFormat(task.createdAt) }}</time>
 
-                        <span style="cursor: auto;" class="text-sm font-medium text-skin-inverted"> Update at{{ convertToLongDateFormat(task.updatedAt) }}</span>
+                        <span style="cursor: auto;" class="text-sm font-medium text-skin-inverted"> Updated at{{ convertToLongDateFormat(task.updatedAt) }}</span>
                       </div>
                     </div>
                   </div>
