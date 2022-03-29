@@ -49,7 +49,7 @@ export class AppService {
     // You can use external libraries to perform this.
 
     _tasks.sort((a: Task, b: Task) => {
-      return +new Date(a.date != null ? a.date : a.createdAt) - +new Date(b.date != null ? b.date : b.createdAt);
+      return +new Date(a.date? a.date : a.createdAt) - +new Date(b.date ? b.date : b.createdAt);
     });
     return _tasks;
   }
