@@ -57,7 +57,7 @@
                   </nuxt-link>
                 </button>
                 <button class="btn btn-sm bg-danger" @click="deleteTask(task.id)">
-                  <SvgIcon name="icons" class="p-1 w-5 h-5 bg-red-600 text-white rounded" />
+                  <SvgIcon name="icons/trash" class="p-1 w-5 h-5 bg-red-600 text-white rounded" />
                 </button>
               </div>
               <div class="flex justify-end px-2 md:px-0" data-v-648b5d7b="">
