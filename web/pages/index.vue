@@ -108,8 +108,18 @@ export default {
     convertToshortDateFormat (date) {
       return this.monthNames[(new Date(date)).getMonth()] + ' ' + new Date(date).getDate() + ', ' + new Date(date).getFullYear()
     },
-    deleteTask (id) {
+    async deleteTask (id) {
       this.$api.tasks.deleteTask(id)
+      const [err, tasks] = await this.$api.tasks.findAll()
+
+      if (err) {
+        return this.error({
+          statusCode: 404,
+          message: err
+        })
+      }
+
+      this.tasks = tasks
     },
     selectChange () {
       if (this.allTask.length === 0) {
