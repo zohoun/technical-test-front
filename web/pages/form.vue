@@ -40,6 +40,7 @@
                 >Date</label>
                 <input
                   id="date"
+                  v-model="date"
                   type="text"
                   name="date"
                   autocomplete="given-name"
@@ -115,20 +116,25 @@ export default {
   methods: {
     submitTask () {
       console.log(this.date)
-      const data = {
-        title: this.title,
-        description: this.description,
-        date: new Date(this.date),
-        status: this.status
-      }
-      if (this.$route.query.id) {
-        this.$api.tasks.updateTask(this.$route.query.id, data)
-      } else {
-        try {
-          this.$api.tasks.createTask(data)
-        } catch (error) {
-          console.log({ error })
+      try {
+        const data = {
+          title: this.title,
+          description: this.description,
+          date: this.date,
+          status: this.status
         }
+        if (this.$route.query.id) {
+          this.$api.tasks.updateTask(this.$route.query.id, data)
+        } else {
+          this.$api.tasks.createTask(data)
+        }
+        alert('Enregistrement réussi!')
+        this.title = ''
+        this.description = ''
+        this.date = ''
+        this.statuse = ''
+      } catch (error) {
+        alert('Enregistrement Echoué!')
       }
     }
   }

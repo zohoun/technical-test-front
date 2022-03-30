@@ -61,8 +61,9 @@
                 </button>
               </div>
               <div class="flex justify-end px-2 md:px-0" data-v-648b5d7b="">
+                <SvgIcon v-if="task.date" name="icons/calendar" class="p-1 w-7 h-7 bg-white-600 text-grey-400 rounded" />
                 <p class="text-secondary">
-                  <i class="fas fa-calendar" /> {{ task.date? convertToshortDateFormat(task.date) : "" }}
+                  <span> {{ task.date? convertToshortDateFormat(task.date) : "" }}</span>
                 </p>
               </div>
             </div>
@@ -109,17 +110,20 @@ export default {
       return this.monthNames[(new Date(date)).getMonth()] + ' ' + new Date(date).getDate() + ', ' + new Date(date).getFullYear()
     },
     async deleteTask (id) {
-      this.$api.tasks.deleteTask(id)
-      const [err, tasks] = await this.$api.tasks.findAll()
+      const isExecuted = confirm('Voulez-vous supprimer la tache ?')
+      if (isExecuted) {
+        this.$api.tasks.deleteTask(id)
+        const [err, tasks] = await this.$api.tasks.findAll()
 
-      if (err) {
-        return this.error({
-          statusCode: 404,
-          message: err
-        })
+        if (err) {
+          return this.error({
+            statusCode: 404,
+            message: err
+          })
+        }
+
+        this.tasks = tasks
       }
-
-      this.tasks = tasks
     },
     selectChange () {
       if (this.allTask.length === 0) {
