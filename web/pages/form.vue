@@ -6,6 +6,8 @@
     >
       <div class="max-w-md w-full space-y-8">
         <div>
+          <SvgIcon name="icons/plus-circle" class="mx-auto h-12 w-auto bg-white-600 text-black rounded" />
+
           <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
             {{ $route.query.id ? "Edit a task" : "Add a task" }}
           </h2>
