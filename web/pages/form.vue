@@ -30,7 +30,6 @@
                   label="Description"
                   name="description"
                   :value="description"
-                  type="text"
                   @input="description = $event"
                 />
               </div>
