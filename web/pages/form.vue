@@ -115,7 +115,6 @@ export default {
   },
   methods: {
     submitTask () {
-      console.log(this.date)
       try {
         const data = {
           title: this.title,

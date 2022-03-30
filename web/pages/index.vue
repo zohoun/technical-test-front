@@ -130,7 +130,6 @@ export default {
         this.allTask = this.tasks
       }
       if (this.optionSelectionee === 'ALL') {
-        console.log(this.optionSelectionee)
         this.tasks = this.allTask
       } else if (this.optionSelectionee) {
         this.tasks = this.allTask.filter(word => word.status.value === this.optionSelectionee)

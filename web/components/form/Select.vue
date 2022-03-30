@@ -45,7 +45,6 @@ export default {
       this.newValue = this.value
     },
     onNewValueUpdated () {
-      console.log(this.newValue)
       this.$emit('input', this.newValue)
     }
   }
