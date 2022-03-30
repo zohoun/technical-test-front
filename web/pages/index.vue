@@ -31,7 +31,7 @@
       <hr>
     </div>
 
-    <div class="container mx-auto px-20 p-10">
+    <div class="container mx-auto px-20 pt-10">
       <div style="background-color:rgb(255, 255, 255)">
         <div v-for="task in tasks" :key="task.id" class="bg-white rounded p-4 shadow md:flex justify-between" data-v-648b5d7b="" style="cursor: auto;">
           <div data-v-648b5d7b="">
@@ -42,7 +42,7 @@
                     <span :class="[{ 'bg-green-400': task.status.label==='Done', 'bg-red-400': task.status.label != 'Done' },'bg-sky-400', 'inline-flex', 'items-center', 'leading-none', 'px-2.5', 'py-1.5', 'text-sm', 'font-medium', 'text-skin-inverted', 'rounded-full', 'border', 'border-skin-input']" style="cursor: auto;">
                       {{ task.status.label }}
                     </span>
-                    <h4 class="text-indigo-600 text-lg leading-6 font-semibold font-sans text-skin-inverted group-hover:text-skin-primary" style="cursor: auto;">
+                    <h4 class="truncate text-indigo-600 text-lg leading-6 font-semibold font-sans text-skin-inverted group-hover:text-skin-primary" style="cursor: auto;">
                       {{ task.title }}
                     </h4>
                   </div>
