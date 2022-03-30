@@ -3,7 +3,26 @@
     <div class="container">
       <div class="container mx-auto h-20 flex justify-between items-center">
         <h2>My tasks</h2>
-        <select id="" v-model="optionSelectionee" name="" class="text-right" @change="selectChange">
+        <select
+          id=""
+          v-model="optionSelectionee"
+          name=""
+          class="text-right form-select appearance-none
+      block
+      px-3
+      py-1.5
+      text-base
+      font-normal
+      text-gray-700
+      bg-white bg-clip-padding bg-no-repeat
+      border border-solid border-gray-300
+      rounded
+      transition
+      ease-in-out
+      m-0
+      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+          @change="selectChange"
+        >
           <option v-for="option in optionsOfFiltering" :key="option.value" class="text-left" :value="option.value">
             {{ option.label }}
           </option>
@@ -12,7 +31,7 @@
       <hr>
     </div>
 
-    <div class="container mx-auto px-20">
+    <div class="container mx-auto px-20 p-10">
       <div style="background-color:rgb(255, 255, 255)">
         <div v-for="task in tasks" :key="task.id" class="bg-white rounded p-4 shadow md:flex justify-between" data-v-648b5d7b="" style="cursor: auto;">
           <div data-v-648b5d7b="">
